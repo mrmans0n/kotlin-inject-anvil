@@ -1,0 +1,31 @@
+plugins {
+    id 'software.amazon.sample'
+    alias(libs.plugins.ksp)
+}
+
+kotlin {
+    androidTarget()
+    iosSimulatorArm64()
+    iosArm64()
+
+    applyDefaultHierarchyTemplate()
+}
+
+dependencies {
+    kspAndroid libs.kotlin.inject.ksp
+    kspIosArm64 libs.kotlin.inject.ksp
+    kspIosSimulatorArm64 libs.kotlin.inject.ksp
+
+    kspAndroid project(':compiler')
+    kspIosArm64 project(':compiler')
+    kspIosSimulatorArm64 project(':compiler')
+
+    kspAndroid project(':dagger-anvil-compat')
+    kspIosArm64 project(':dagger-anvil-compat')
+    kspIosSimulatorArm64 project(':dagger-anvil-compat')
+    commonMainImplementation libs.anvil.ksp.annotations
+
+    commonMainImplementation project(':runtime')
+    commonMainImplementation project(':runtime-optional')
+    commonMainImplementation libs.kotlin.inject.runtime
+}
